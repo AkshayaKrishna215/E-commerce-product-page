@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Product Page</title>
+    <link rel="stylesheet" href="styless.css">
+</head>
+<body>
+    <header>
+        <h1>Our Products</h1>
+    </header>
+    <main>
+        <div class="product">
+            <div class="product-image">
+                <img src="product1.jpg" alt="Product 1">
+            </div>
+            <div class="product-info">
+                <h2>Product 1</h2>
+                <p>Description of Product 1</p>
+                <h3>Price: $25.00</h3>
+                <button class="add-to-cart" onclick="addToCart('Product 1', 25)">Add to Cart</button>
+            </div>
+        </div>
+        <div class="product">
+            <div class="product-image">
+                <img src="product2.jpg" alt="Product 2">
+            </div>
+            <div class="product-info">
+                <h2>Product 2</h2>
+                <p>Description of Product 2</p>
+                <h3>Price: $30.00</h3>
+                <button class="add-to-cart" onclick="addToCart('Product 2', 30)">Add to Cart</button>
+            </div>
+        </div>
+        <div class="product">
+            <div class="product-image">
+                <img src="product3.jpg" alt="Product 3">
+            </div>
+            <div class="product-info">
+                <h2>Product 3</h2>
+                <p>Description of Product 3</p>
+                <h3>Price: $45.00</h3>
+                <button class="add-to-cart" onclick="addToCart('Product 3', 45)">Add to Cart</button>
+            </div>
+        </div>
+        <div class="product">
+            <div class="product-image">
+                <img src="product4.jpg" alt="Product 4">
+            </div>
+            <div class="product-info">
+                <h2>Product 4</h2>
+                <p>Description of Product 4</p>
+                <h3>Price: $100.00</h3>
+                <button class="add-to-cart" onclick="addToCart('Product 4', 100)">Add to Cart</button>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <button class="view-cart" onclick="goToViewCart()">View Cart</button>
+    </footer>
+
+    <script>
+        function addToCart(productName, productPrice) {
+            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push({ name: productName, price: productPrice });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(productName + " added to cart!");
+        }
+
+        function goToViewCart() {
+            window.location.href = "viewcart.html";
+        }
+    </script>
+</body>
+</html>

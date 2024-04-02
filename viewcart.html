@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Cart</title>
+    <link rel="stylesheet" href="styles1.css">
+</head>
+<body>
+    <header>
+        <h1>View Cart</h1>
+    </header>
+    <main>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items will be displayed here -->
+        </div>
+    </main>
+    <footer>
+        <div class="total">
+            <h2 id="total-amount">Total: $0.00</h2>
+        </div>
+        <button class="checkout-button" id="checkout-button">Proceed to Checkout</button>
+    </footer>
+
+    <script>
+        // Function to calculate total amount
+        function calculateTotal() {
+            var total = 0;
+            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.forEach(function(item) {
+                total += item.price;
+            });
+            document.getElementById('total-amount').textContent = 'Total: $' + total.toFixed(2);
+        }
+
+        // Function to display cart items
+        function displayCartItems() {
+            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+            var cartItemsContainer = document.getElementById('cart-items');
+            cartItemsContainer.innerHTML = '';
+            cart.forEach(function(item, index) {
+                var itemElement = document.createElement('div');
+                itemElement.classList.add('cart-item');
+                itemElement.innerHTML = `
+                    <div class="product-info">
+                        <h2>${item.name}</h2>
+                        <p>Description of the product</p>
+                        <p>Price: $${item.price.toFixed(2)}</p>
+                    </div>
+                    <div class="quantity">
+                        <input type="number" value="1" min="1">
+                    </div>
+                    <div class="subtotal">
+                        <p>$${item.price.toFixed(2)}</p>
+                    </div>
+                    <div class="delete-button">
+                        <button onclick="removeItem(${index})">Delete</button>
+                    </div>
+                `;
+                cartItemsContainer.appendChild(itemElement);
+            });
+        }
+
+        // Function to remove an item from the cart
+        function removeItem(index) {
+            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            displayCartItems();
+            calculateTotal();
+        }
+
+        // Redirect to qrpage.html when checkout button is clicked
+        document.getElementById('checkout-button').addEventListener('click', function() {
+            window.location.href = 'qrpage.html';
+        });
+
+        // Call functions when the page loads
+        window.onload = function() {
+            displayCartItems();
+            calculateTotal();
+        };
+    </script>
+</body>
+</html>
